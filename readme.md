@@ -15,7 +15,7 @@ Deployment environment : RoboMaster/Development-Board-C-Examples/standard_robot
 Hardware platform : STM32F4
 
 # Supporting Documentation
-Electric Vehicle Power Control.pptx Video presentation slides (In English)
+[Electric Vehicle Power Control.pptx](ElectricVehiclePowerControl.pdf) (In English)
     
 [Video presentation](https://www.bilibili.com/video/BV1tu41177wm/) (In Chinese)
 
@@ -40,7 +40,7 @@ Electric Vehicle Power Control.pptx Video presentation slides (In English)
 型公式的符号问题，使其考虑到了电机减速时可以输出的额外力矩。为了减少调参时间，
 使用Matlab 对电机参数进行拟合。
 同时发现现在网络上缺少关于C620 电调解释资料缺乏，本文档还详细的解释了Give
-current, Given current, Real current & 力矩的相关概念。
+current, Given current, 相电流 & 力矩的相关概念。
 
 
 # 软件效果展示
@@ -73,13 +73,13 @@ chassis_power_control.c 功率控制代码
 # 原理介绍与理论支持分析
 见开源报告
 
-# 未来优化的向（RoadMap）
+# 未来优化的方向（RoadMap）
 
 需要对该电机功率模型的经验公式进行进一步优化，探讨有无其他相关项。
 
 # 配套文档资料
-Electric Vehicle Power Control.pptx 算法讲解幻灯片（英语）
+[Electric Vehicle Power Control.pptx 算法讲解幻灯片](ElectricVehiclePowerControl.pdf) （英语）
 
 [视频讲解](https://www.bilibili.com/video/BV1tu41177wm/) （中文）
 
-开源报告 （中文）
+[开源报告](开源报告.pdf) （中文）
