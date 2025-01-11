@@ -23,8 +23,8 @@ void chassis_power_control(chassis_move_t *chassis_power_control)
 	fp32 chassis_power_buffer = 0.0f;
 
 	fp32 toque_coefficient = 1.99688994e-6f; // (20/16384)*(0.3)*(187/3591)/9.55
-	fp32 a = 1.23e-07;						 // k2
-	fp32 k1 = 1.453e-07;					 // k1
+	fp32 a = 1.23e-07;						 // k1
+	fp32 k2 = 1.453e-07;					 // k2
 	fp32 constant = 4.081f;
 
 	get_chassis_power_and_buffer(&chassis_power, &chassis_power_buffer);
@@ -62,7 +62,7 @@ void chassis_power_control(chassis_move_t *chassis_power_control)
 	for (uint8_t i = 0; i < 4; i++) // first get all the initial motor power and total motor power
 	{
 		initial_give_power[i] = chassis_power_control->motor_speed_pid[i].out * toque_coefficient * chassis_power_control->motor_chassis[i].chassis_motor_measure->speed_rpm +
-								k1 * chassis_power_control->motor_chassis[i].chassis_motor_measure->speed_rpm * chassis_power_control->motor_chassis[i].chassis_motor_measure->speed_rpm +
+								k2 * chassis_power_control->motor_chassis[i].chassis_motor_measure->speed_rpm * chassis_power_control->motor_chassis[i].chassis_motor_measure->speed_rpm +
 								a * chassis_power_control->motor_speed_pid[i].out * chassis_power_control->motor_speed_pid[i].out + constant;
 
 		if (initial_give_power < 0) // negative power not included (transitory)
