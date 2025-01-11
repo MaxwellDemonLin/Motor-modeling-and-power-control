@@ -83,10 +83,15 @@ void chassis_power_control(chassis_move_t *chassis_power_control)
 
 			fp32 b = toque_coefficient * chassis_power_control->motor_chassis[i].chassis_motor_measure->speed_rpm;
 			fp32 c = k1 * chassis_power_control->motor_chassis[i].chassis_motor_measure->speed_rpm * chassis_power_control->motor_chassis[i].chassis_motor_measure->speed_rpm - scaled_give_power[i] + constant;
+			fp32 inside = b * b - 4 * a * c;
 
-			if (chassis_power_control->motor_speed_pid[i].out > 0) // Selection of the calculation formula according to the direction of the original moment
+			if (inside < 0)
 			{
-				fp32 temp = (-b + sqrt(b * b - 4 * a * c)) / (2 * a);
+				continue;
+			}
+			else if (chassis_power_control->motor_speed_pid[i].out > 0) // Selection of the calculation formula according to the direction of the original moment
+			{
+				fp32 temp = (-b + sqrt(inside)) / (2 * a);
 				if (temp > 16000)
 				{
 					chassis_power_control->motor_speed_pid[i].out = 16000;
@@ -96,7 +101,7 @@ void chassis_power_control(chassis_move_t *chassis_power_control)
 			}
 			else
 			{
-				fp32 temp = (-b - sqrt(b * b - 4 * a * c)) / (2 * a);
+				fp32 temp = (-b - sqrt(inside)) / (2 * a);
 				if (temp < -16000)
 				{
 					chassis_power_control->motor_speed_pid[i].out = -16000;
